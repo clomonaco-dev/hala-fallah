@@ -3,23 +3,19 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
-import type { Locale } from '@/lib/i18n';
-import { site } from '@/lib/i18n';
+import { Brand } from '@/components/Brand';
+import { LanguageFlag } from '@/components/LanguageFlag';
+import { locales, site, type Locale, type Translation } from '@/lib/i18n';
 
-type NavCopy = {
-  home: string;
-  profile: string;
-  services: string;
-  facilities: string;
-  faq: string;
-  contact: string;
-  book: string;
-};
-
-export function Header({ locale, nav, specialist }: { locale: Locale; nav: NavCopy; specialist: string }) {
+export function Header({ locale, nav, specialist, language, location }: {
+  locale: Locale;
+  nav: Translation['nav'];
+  specialist: string;
+  language: string;
+  location: string;
+}) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const items = [
     ['', nav.home],
     ['profilo', nav.profile],
@@ -29,47 +25,64 @@ export function Header({ locale, nav, specialist }: { locale: Locale; nav: NavCo
     ['contatti', nav.contact],
   ] as const;
 
-  const switchLocale = locale === 'it' ? 'en' : 'it';
-  const switchedPath = pathname?.replace(/^\/(it|en)(?=\/|$)/, `/${switchLocale}`) || `/${switchLocale}`;
+  const localeNames: Record<Locale, string> = { it: 'Italiano', en: 'English', fr: 'Français', es: 'Español' };
+  function languageHref(code: Locale) {
+    return pathname?.replace(/^\/(it|en|fr|es)(?=\/|$)/, `/${code}`) || `/${code}`;
+  }
 
   return (
     <>
       <div className="topbar">
         <div className="shell topbarInner">
-          <span>{specialist}</span>
-          <div className="topbarLinks">
-            <a href={site.phoneHref}>{site.phoneDisplay}</a>
-            <a href={`mailto:${site.email}`}>{site.email}</a>
-          </div>
+          <span className="topbarSpecialist"><i aria-hidden="true" />{specialist}</span>
+          <div className="topbarContact"><span>{location}</span><a href={site.phoneHref}>{site.phoneDisplay}</a></div>
         </div>
       </div>
       <header className="siteHeader">
         <div className="shell navWrap">
-          <Link className="brand" href={`/${locale}`} onClick={() => setOpen(false)}>
-            <img src="/images/logo.png" alt="" width="100" height="42" />
-            <span><strong>Fallah Eyecare</strong><small>Dott.ssa Hala Fallah</small></span>
-          </Link>
-
-          <button className="menuButton" type="button" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Menu">
-            <span /> <span /> <span />
+          <Brand locale={locale} />
+          <button type="button" className={`menuButton ${menuOpen ? 'isOpen' : ''}`} aria-label="Toggle navigation" aria-expanded={menuOpen} aria-controls="primary-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+            <span /><span /><span />
           </button>
-
-          <nav className={`mainNav ${open ? 'open' : ''}`} aria-label="Main navigation">
-            {items.map(([slug, label]) => {
-              const href = slug ? `/${locale}/${slug}` : `/${locale}`;
-              const active = pathname === href;
-              return <Link key={href} href={href} className={active ? 'active' : ''} onClick={() => setOpen(false)}>{label}</Link>;
-            })}
-            <Link className="languagePill" href={switchedPath} onClick={() => setOpen(false)}>
-              {locale === 'it' ? 'EN' : 'IT'}
-            </Link>
-            <Link className="button buttonPrimary navCta" href={`/${locale}/contatti`} onClick={() => setOpen(false)}>{nav.book}</Link>
+          <nav id="primary-navigation" className={`mainNav ${menuOpen ? 'isOpen' : ''}`} aria-label="Primary navigation">
+            <div className="navLinks">
+              {items.map(([segment, label]) => {
+                const href = segment ? `/${locale}/${segment}` : `/${locale}`;
+                const active = pathname === href || (segment !== '' && Boolean(pathname?.startsWith(href + '/')));
+                return <Link key={href} href={href} aria-current={active ? 'page' : undefined} className={active ? 'active' : ''} onClick={() => setMenuOpen(false)}>{label}</Link>;
+              })}
+            </div>
+            <div className="navActions">
+              <details key={locale} className="languagePicker">
+                <summary aria-label={`${language}: ${localeNames[locale]}`} title={language}>
+                  <LanguageFlag locale={locale} />
+                  <span>{locale.toUpperCase()}</span>
+                  <span className="localeChevron" aria-hidden="true">⌄</span>
+                </summary>
+                <div className="languageDropdown" aria-label={language}>
+                  {locales.map((code) => (
+                    <Link
+                      key={code}
+                      href={languageHref(code)}
+                      hrefLang={code}
+                      lang={code}
+                      aria-label={localeNames[code]}
+                      aria-current={code === locale ? 'page' : undefined}
+                      title={localeNames[code]}
+                      onClick={() => setMenuOpen(false)}
+                    >
+                      <LanguageFlag locale={code} />
+                      <span>{code.toUpperCase()}</span>
+                      {code === locale && <span aria-hidden="true" className="localeSelected">✓</span>}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+              <Link className="button buttonPrimary navCta" href={`/${locale}/contatti`} onClick={() => setMenuOpen(false)}>{nav.book} <span aria-hidden="true">↗</span></Link>
+            </div>
           </nav>
         </div>
       </header>
-      <Link className="button buttonPrimary mobileBookingCta" href={`/${locale}/contatti`} onClick={() => setOpen(false)}>
-        {nav.book}
-      </Link>
     </>
   );
 }
