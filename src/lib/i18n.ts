@@ -42,9 +42,13 @@ export type Translation = {
     openMaps: string; explore: string; contacts: string; privacy: string; rights: string;
     disclaimer: string; medicalOrder: string; allServices: string; language: string;
     bookNote: string; location: string; visitInfo: string;
+    skipToContent: string; menuOpen: string; menuClose: string; breadcrumb: string;
   };
   home: {
     title: string; lead: string; ctaServices: string; chips: string[];
+    stats: { value: string; label: string }[];
+    stepsEyebrow: string; stepsTitle: string; stepsText: string;
+    steps: { title: string; text: string }[];
     servicesEyebrow: string; servicesTitle: string; servicesText: string;
     profileEyebrow: string; profileTitle: string; profileText: string;
     facilitiesEyebrow: string; facilitiesTitle: string; facilitiesText: string;
@@ -59,7 +63,7 @@ export type Translation = {
   services: {
     eyebrow: string; title: string; intro: string; cards: ServiceCopy[];
     areas: string; detailEyebrow: string; assessmentNote: string; helpTitle: string;
-    helpText: string; processTitle: string; processText: string;
+    helpText: string; processTitle: string; processText: string; relatedTitle: string;
   };
   consultation: {
     eyebrow: string; title: string; text: string; badge: string; tariff: string;
@@ -91,11 +95,24 @@ const copy: Record<Locale, Translation> = {
       medicalOrder: 'Ordine dei Medici di Varese', allServices: 'Vedi tutte le prestazioni',
       language: 'Lingua del sito', bookNote: 'Visite su appuntamento', location: 'Varese, Italia',
       visitInfo: 'La valutazione e gli esami necessari vengono definiti in base alle esigenze cliniche individuali.',
+      skipToContent: 'Vai al contenuto principale', menuOpen: 'Apri il menu', menuClose: 'Chiudi il menu', breadcrumb: 'Percorso di navigazione',
     },
     home: {
       title: 'Uno sguardo attento, una cura su misura.',
       lead: 'La Dott.ssa Hala Fallah si dedica alla salute degli occhi di adulti e bambini, con competenza specialistica, ascolto e attenzione alla persona.',
       ctaServices: 'Esplora le prestazioni', chips: ['Oftalmologia', 'Diagnostica oculare', 'Adulti e bambini'],
+      stats: [
+        { value: '1999', label: 'Specializzazione in Oftalmologia' },
+        { value: '8', label: 'Aree di prestazione' },
+        { value: '2', label: 'Sedi a Varese' },
+      ],
+      stepsEyebrow: 'Come funziona', stepsTitle: 'Un percorso semplice, dal primo contatto alla visita',
+      stepsText: 'Ogni passaggio è pensato per offrirti chiarezza e serenità, prima, durante e dopo la visita.',
+      steps: [
+        { title: 'Contatta lo studio', text: 'Chiama o scrivi per fissare l’appuntamento e sapere in quale sede si svolgerà la prestazione.' },
+        { title: 'Visita e valutazione', text: 'La visita parte dall’ascolto delle tue esigenze e prosegue, quando indicato, con gli esami appropriati.' },
+        { title: 'Indicazioni chiare', text: 'Al termine ricevi spiegazioni comprensibili e, se necessario, le indicazioni per controlli successivi.' },
+      ],
       servicesEyebrow: 'Le nostre competenze', servicesTitle: 'La salute dei tuoi occhi, in ogni fase della vita',
       servicesText: 'Sei percorsi in evidenza. Seleziona una prestazione per approfondire la visita, gli esami e le aree di valutazione.',
       profileEyebrow: 'La specialista', profileTitle: 'Esperienza, formazione e attenzione alla persona.',
@@ -130,6 +147,7 @@ const copy: Record<Locale, Translation> = {
       assessmentNote: 'Gli approfondimenti vengono indicati dopo valutazione clinica e possono variare in base al paziente e alla sede.',
       helpTitle: 'Non sai quale visita scegliere?', helpText: 'Contatta lo studio: potremo fornirti informazioni organizzative sulla prestazione e sulla sede.',
       processTitle: 'Una valutazione centrata sulla persona', processText: 'La visita parte dall’ascolto delle esigenze e prosegue, quando indicato, con gli esami appropriati al quadro clinico.',
+      relatedTitle: 'Altre prestazioni',
       cards: [
         { slug: 'visita-oculistica', title: 'Visita oculistica completa', text: 'Una valutazione della funzione visiva e della salute oculare, per tutte le età.', detail: 'La visita consente di valutare i sintomi riferiti, la capacità visiva e lo stato di salute degli occhi. Gli eventuali esami aggiuntivi sono proposti in relazione al quadro clinico.', bullets: ['Valutazione dell’acuità visiva', 'Esame del fondo oculare quando indicato', 'Valutazione della correzione ottica'] },
         { slug: 'esami-strumentali', title: 'Diagnostica strumentale', text: 'Esami mirati per approfondire la salute dell’occhio e delle sue strutture.', detail: 'Gli esami strumentali completano la valutazione clinica quando necessario. Il tipo di accertamento dipende dal sospetto diagnostico e dalle caratteristiche della persona.', bullets: ['Tomografia a coerenza ottica (OCT)', 'Topografia e pachimetria corneale', 'Tonometria e gonioscopia'] },
@@ -189,11 +207,24 @@ const copy: Record<Locale, Translation> = {
       medicalOrder: 'Varese Medical Association', allServices: 'View all services',
       language: 'Website language', bookNote: 'By appointment only', location: 'Varese, Italy',
       visitInfo: 'The assessment and any further investigations are tailored to individual clinical needs.',
+      skipToContent: 'Skip to main content', menuOpen: 'Open menu', menuClose: 'Close menu', breadcrumb: 'Breadcrumb',
     },
     home: {
       title: 'Thoughtful vision care, tailored to you.',
       lead: 'Dr Hala Fallah cares for the eye health of adults and children through specialist knowledge, attentive listening and a personal approach.',
       ctaServices: 'Explore our services', chips: ['Ophthalmology', 'Eye diagnostics', 'Adults & children'],
+      stats: [
+        { value: '1999', label: 'Specialisation in Ophthalmology' },
+        { value: '8', label: 'Areas of care' },
+        { value: '2', label: 'Locations in Varese' },
+      ],
+      stepsEyebrow: 'How it works', stepsTitle: 'A simple path, from first contact to your appointment',
+      stepsText: 'Each step is designed to give you clarity and peace of mind, before, during and after your visit.',
+      steps: [
+        { title: 'Contact the practice', text: 'Call or write to arrange your appointment and find out which location it will take place in.' },
+        { title: 'Examination', text: 'The visit starts by listening to your concerns, followed by appropriate tests when clinically indicated.' },
+        { title: 'Clear guidance', text: 'You receive understandable explanations and, where needed, guidance on any follow-up checks.' },
+      ],
       servicesEyebrow: 'Our expertise', servicesTitle: 'Eye health at every stage of life',
       servicesText: 'Six featured pathways. Select a service to learn more about examinations, diagnostics and the areas assessed.',
       profileEyebrow: 'The specialist', profileTitle: 'Experience, education and attention to each person.',
@@ -228,6 +259,7 @@ const copy: Record<Locale, Translation> = {
       assessmentNote: 'Further investigations depend on clinical evaluation and may vary by individual patient and location.',
       helpTitle: 'Not sure which appointment to request?', helpText: 'Contact the practice for information about services and location arrangements.',
       processTitle: 'Care centred on each person', processText: 'Assessment starts by listening to your concerns, followed by appropriate tests when clinically indicated.',
+      relatedTitle: 'Other services',
       cards: [
         { slug: 'visita-oculistica', title: 'Comprehensive eye examination', text: 'Assessment of visual function and eye health at every age.', detail: 'An examination helps assess symptoms, visual acuity and ocular health. Any further diagnostic tests are selected based on the clinical picture.', bullets: ['Visual acuity assessment', 'Fundus examination when indicated', 'Corrective lens assessment'] },
         { slug: 'esami-strumentali', title: 'Diagnostic eye testing', text: 'Targeted investigations to assess the eye and its structures.', detail: 'Diagnostic testing supports the clinical examination where needed. The choice of test depends on the suspected condition and the individual’s needs.', bullets: ['Optical coherence tomography (OCT)', 'Corneal topography and pachymetry', 'Tonometry and gonioscopy'] },
@@ -286,11 +318,24 @@ const copy: Record<Locale, Translation> = {
       medicalOrder: 'Ordre des médecins de Varèse', allServices: 'Voir toutes les prestations',
       language: 'Langue du site', bookNote: 'Sur rendez-vous uniquement', location: 'Varèse, Italie',
       visitInfo: 'L’évaluation et les examens complémentaires sont adaptés aux besoins cliniques de chaque personne.',
+      skipToContent: 'Aller au contenu principal', menuOpen: 'Ouvrir le menu', menuClose: 'Fermer le menu', breadcrumb: 'Fil d’Ariane',
     },
     home: {
       title: 'Un regard attentif, des soins sur mesure.',
       lead: 'La Dre Hala Fallah accompagne la santé oculaire des adultes et des enfants avec expertise, écoute et une approche personnalisée.',
       ctaServices: 'Explorer les prestations', chips: ['Ophtalmologie', 'Examens oculaires', 'Adultes et enfants'],
+      stats: [
+        { value: '1999', label: 'Spécialisation en ophtalmologie' },
+        { value: '8', label: 'Domaines de soins' },
+        { value: '2', label: 'Lieux à Varèse' },
+      ],
+      stepsEyebrow: 'Comment ça marche', stepsTitle: 'Un parcours simple, du premier contact à la consultation',
+      stepsText: 'Chaque étape est pensée pour vous apporter clarté et sérénité, avant, pendant et après la consultation.',
+      steps: [
+        { title: 'Contactez le cabinet', text: 'Appelez ou écrivez pour fixer le rendez-vous et savoir dans quel lieu il aura lieu.' },
+        { title: 'Consultation et évaluation', text: 'La consultation commence par l’écoute de vos besoins, puis des examens adaptés sont proposés si nécessaire.' },
+        { title: 'Des explications claires', text: 'Vous recevez des explications compréhensibles et, si besoin, des indications pour le suivi.' },
+      ],
       servicesEyebrow: 'Nos compétences', servicesTitle: 'Votre santé visuelle, à chaque âge',
       servicesText: 'Six parcours à découvrir. Choisissez une prestation pour en savoir plus sur les consultations et les examens proposés.',
       profileEyebrow: 'La spécialiste', profileTitle: 'Expérience, formation et attention à chacun.',
@@ -325,6 +370,7 @@ const copy: Record<Locale, Translation> = {
       assessmentNote: 'Les examens complémentaires dépendent de l’évaluation clinique et peuvent varier selon la personne et le lieu.',
       helpTitle: 'Vous ne savez pas quelle consultation choisir ?', helpText: 'Contactez le cabinet pour les informations pratiques concernant les prestations et les lieux.',
       processTitle: 'Une attention centrée sur la personne', processText: 'La consultation commence par l’écoute de vos besoins ; des examens adaptés peuvent ensuite être proposés.',
+      relatedTitle: 'Autres prestations',
       cards: [
         { slug: 'visita-oculistica', title: 'Examen ophtalmologique complet', text: 'Évaluation de la vision et de la santé oculaire à tout âge.', detail: 'La consultation permet d’évaluer les symptômes, l’acuité visuelle et la santé des yeux. Les examens complémentaires dépendent de la situation clinique.', bullets: ['Mesure de l’acuité visuelle', 'Fond d’œil si indiqué', 'Évaluation de la correction optique'] },
         { slug: 'esami-strumentali', title: 'Examens diagnostiques oculaires', text: 'Explorations ciblées des différentes structures de l’œil.', detail: 'Les examens instrumentaux complètent la consultation lorsqu’ils sont nécessaires. Leur choix dépend du diagnostic envisagé et de la situation individuelle.', bullets: ['Tomographie en cohérence optique (OCT)', 'Topographie et pachymétrie cornéennes', 'Tonométrie et gonioscopie'] },
@@ -383,11 +429,24 @@ const copy: Record<Locale, Translation> = {
       medicalOrder: 'Colegio de Médicos de Varese', allServices: 'Ver todos los servicios',
       language: 'Idioma del sitio', bookNote: 'Atención con cita previa', location: 'Varese, Italia',
       visitInfo: 'La evaluación y las pruebas complementarias se adaptan a las necesidades clínicas individuales.',
+      skipToContent: 'Ir al contenido principal', menuOpen: 'Abrir el menú', menuClose: 'Cerrar el menú', breadcrumb: 'Ruta de navegación',
     },
     home: {
       title: 'Una mirada atenta, un cuidado a tu medida.',
       lead: 'La Dra. Hala Fallah cuida la salud ocular de adultos y niños con conocimientos especializados, escucha y atención personalizada.',
       ctaServices: 'Explorar servicios', chips: ['Oftalmología', 'Diagnóstico ocular', 'Adultos y niños'],
+      stats: [
+        { value: '1999', label: 'Especialización en Oftalmología' },
+        { value: '8', label: 'Áreas de atención' },
+        { value: '2', label: 'Sedes en Varese' },
+      ],
+      stepsEyebrow: 'Cómo funciona', stepsTitle: 'Un recorrido sencillo, del primer contacto a la consulta',
+      stepsText: 'Cada paso está pensado para ofrecerte claridad y tranquilidad, antes, durante y después de la visita.',
+      steps: [
+        { title: 'Contacta con la consulta', text: 'Llama o escribe para concertar la cita y saber en qué sede se realizará.' },
+        { title: 'Consulta y evaluación', text: 'La visita comienza escuchando tus necesidades y continúa, cuando se indique, con las pruebas adecuadas.' },
+        { title: 'Indicaciones claras', text: 'Recibes explicaciones comprensibles y, si es necesario, indicaciones para los controles posteriores.' },
+      ],
       servicesEyebrow: 'Nuestra experiencia', servicesTitle: 'Salud visual en cada etapa de la vida',
       servicesText: 'Seis servicios destacados. Selecciona uno para conocer sus evaluaciones y pruebas diagnósticas.',
       profileEyebrow: 'La especialista', profileTitle: 'Experiencia, formación y atención a las personas.',
@@ -422,6 +481,7 @@ const copy: Record<Locale, Translation> = {
       assessmentNote: 'Las pruebas complementarias dependen de la evaluación clínica y pueden variar según el paciente y la sede.',
       helpTitle: '¿No sabes qué consulta solicitar?', helpText: 'Contacta con la consulta para obtener información práctica sobre servicios y sedes.',
       processTitle: 'Atención centrada en cada persona', processText: 'La consulta comienza escuchando tus necesidades y continúa con las pruebas adecuadas cuando se indiquen.',
+      relatedTitle: 'Otros servicios',
       cards: [
         { slug: 'visita-oculistica', title: 'Examen oftalmológico completo', text: 'Evaluación de la visión y la salud ocular para todas las edades.', detail: 'El examen permite valorar los síntomas, la agudeza visual y la salud de los ojos. Las pruebas adicionales se indican según la situación clínica.', bullets: ['Evaluación de la agudeza visual', 'Examen del fondo de ojo cuando corresponda', 'Valoración de la corrección óptica'] },
         { slug: 'esami-strumentali', title: 'Pruebas diagnósticas oculares', text: 'Estudios específicos de las estructuras del ojo.', detail: 'Las pruebas instrumentales complementan la exploración cuando son necesarias. Su selección depende del diagnóstico previsto y de cada persona.', bullets: ['Tomografía de coherencia óptica (OCT)', 'Topografía y paquimetría corneal', 'Tonometría y gonioscopia'] },

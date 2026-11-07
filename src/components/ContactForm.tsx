@@ -2,6 +2,7 @@
 
 import type { FormEvent } from 'react';
 import Link from 'next/link';
+import { Icon } from '@/components/Icon';
 import { site, type Locale } from '@/lib/i18n';
 import { legalCopy } from '@/lib/legal';
 
@@ -21,13 +22,16 @@ export function ContactForm({ labels, locale }: { labels: { name: string; emailL
   return (
     <form className="contactForm" onSubmit={submit}>
       <div className="formGrid">
-        <label><span>{labels.name}</span><input name="name" required /></label>
-        <label><span>{labels.emailLabel}</span><input type="email" name="email" required /></label>
+        <label className="field"><span>{labels.name}</span><input name="name" autoComplete="name" required /></label>
+        <label className="field"><span>{labels.emailLabel}</span><input type="email" name="email" autoComplete="email" inputMode="email" required /></label>
       </div>
-      <label><span>{labels.subject}</span><input name="subject" required /></label>
-      <label><span>{labels.message}</span><textarea name="message" rows={6} required /></label>
-      <label className="privacyAcknowledgement"><input type="checkbox" required aria-label={legal.formRequired} /><span>{legal.formRead} <Link href={`/${locale}/privacy`} target="_blank" rel="noopener noreferrer">{legal.formPrivacyLink}</Link>.</span></label>
-      <button className="button buttonPrimary" type="submit">{labels.send}</button>
+      <label className="field"><span>{labels.subject}</span><input name="subject" required /></label>
+      <label className="field"><span>{labels.message}</span><textarea name="message" rows={6} required /></label>
+      <label className="privacyAcknowledgement">
+        <input type="checkbox" required aria-describedby="privacy-ack-text" />
+        <span id="privacy-ack-text">{legal.formRead} <Link href={`/${locale}/privacy`} target="_blank" rel="noopener noreferrer">{legal.formPrivacyLink}</Link>.</span>
+      </label>
+      <button className="button buttonPrimary" type="submit"><Icon name="mail" size={18} />{labels.send}</button>
     </form>
   );
 }

@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { Icon } from '@/components/Icon';
 import { CONSENT_EVENT, CONSENT_SETTINGS_EVENT, readConsent, saveConsent } from '@/lib/consent';
 import { legalCopy } from '@/lib/legal';
 import type { Locale } from '@/lib/i18n';
@@ -42,13 +43,13 @@ export function CookieConsent({ locale }: { locale: Locale }) {
   return (
     <section role="dialog" aria-modal="false" aria-label={t.bannerTitle} className="consentBanner">
       <div className="consentTop">
-        <div className="consentSymbol" aria-hidden="true">✦</div>
+        <div className="consentSymbol" aria-hidden="true"><Icon name="shield" size={22} /></div>
         <div className="consentTitle"><span className="eyebrow">Fallah Eyecare</span><h2>{t.bannerTitle}</h2></div>
-        <button type="button" className="consentDismiss" aria-label={t.close} title={t.close} onClick={() => choose(false)}>×</button>
+        <button type="button" className="consentDismiss" aria-label={t.close} title={t.close} onClick={() => choose(false)}><Icon name="close" size={18} /></button>
       </div>
       <p>{t.bannerText}</p>
       {expanded && <div className="consentOptions">
-        <div className="consentOption"><div><strong>{t.necessary}</strong><small>{t.necessaryText}</small></div><span className="consentRequired">✓</span></div>
+        <div className="consentOption"><div><strong>{t.necessary}</strong><small>{t.necessaryText}</small></div><span className="consentRequired"><Icon name="check" size={15} /></span></div>
         <label className="consentOption"><div><strong>{t.maps}</strong><small>{t.mapsText}</small></div><input type="checkbox" checked={maps} onChange={(e) => setMaps(e.target.checked)} /></label>
       </div>}
       <div className="consentLinks"><Link href={`/${locale}/cookie`}>{t.bannerLink}</Link><Link href={`/${locale}/privacy`}>{t.policyLink}</Link></div>

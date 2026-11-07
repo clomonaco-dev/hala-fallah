@@ -40,6 +40,23 @@ npm run build
 npm start
 ```
 
+## Design e UX
+
+- Palette derivata dal logo ufficiale (blu notte + azzurro) e marchio vettoriale in `components/Brand.tsx`
+- Font Newsreader (titoli) e Manrope (testi) via `next/font`: scaricati in build e serviti dal sito, nessuna richiesta a Google dal browser
+- Immagini servite con `next/image` (WebP/AVIF ridimensionate: es. la foto della home passa da 3,2 MB a ~50 KB)
+- Icone SVG coerenti in `components/Icon.tsx`
+- Home con statistiche, percorso in 3 passi, sezione sedi e CTA con contatti diretti
+- Menu mobile a schermo intero, barra fissa mobile con chiamata + prenotazione
+- Breadcrumb, prestazioni correlate nelle pagine servizio, FAQ con riquadro contatti
+- Animazioni d'ingresso discrete (disattivate con "riduci movimento")
+
+## SEO
+
+- Titoli, descrizioni, canonical e hreflang per ogni pagina e lingua (`lib/seo.ts`)
+- Dati strutturati schema.org: `Physician` con le due sedi, `BreadcrumbList`, `FAQPage`
+- L'URL pubblico è `https://fallaheyecare.com` per default: impostare `NEXT_PUBLIC_SITE_URL` se il dominio è diverso
+
 ## LinkedIn
 
 Non essendo stato identificato con certezza un URL pubblico univoco del profilo personale della Dott.ssa Fallah, in `lib/i18n.ts` la costante `linkedinUrl` punta a una ricerca LinkedIn per “Hala Fallah Varese”. Sostituirla con l'URL diretto del profilo quando disponibile.
