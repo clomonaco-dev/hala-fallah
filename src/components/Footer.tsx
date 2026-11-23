@@ -5,11 +5,10 @@ import { Icon } from '@/components/Icon';
 import { legalCopy } from '@/lib/legal';
 import { site, type Locale, type Translation } from '@/lib/i18n';
 
-export function Footer({ locale, common, nav, consultation }: {
+export function Footer({ locale, common, nav }: {
   locale: Locale;
   common: Translation['common'];
   nav: Translation['nav'];
-  consultation: Translation['consultation'];
 }) {
   return (
     <footer className="siteFooter">
@@ -33,12 +32,6 @@ export function Footer({ locale, common, nav, consultation }: {
           <a href={`mailto:${site.email}`}><Icon name="mail" size={18} />{site.email}</a>
           <address><Icon name="pin" size={18} />{site.studioAddress}</address>
           <a href={site.medicalOrderUrl} target="_blank" rel="noopener noreferrer"><Icon name="shield" size={18} />{common.medicalOrder}</a>
-        </div>
-        <div className="footerConsultation">
-          <span className="footerTinyLabel">{consultation.eyebrow}</span>
-          <h2>{consultation.title}</h2>
-          <p>{consultation.tariff}</p>
-          <Link href={`/${locale}/contatti`}>{consultation.cta} <Icon name="arrowRight" size={16} /></Link>
         </div>
       </div>
       <div className="shell footerBottom">

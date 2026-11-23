@@ -25,11 +25,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params;
   const lang: Locale = isLocale(locale) ? locale : 'it';
   const t = getCopy(lang);
-  const base = pageMetadata(lang, '', `${t.profile.title} · ${t.common.specialist}`, t.home.lead);
+  const base = pageMetadata(lang, '', t.home.metaTitle, t.home.metaDescription);
   return {
     ...base,
     metadataBase: new URL(siteUrl),
-    title: { default: `${t.profile.title} · ${t.common.specialist.split('·').pop()?.trim()} · Varese | Fallah Eyecare`, template: `%s | Fallah Eyecare · ${t.profile.title}` },
+    title: { default: t.home.metaTitle, template: `%s | Fallah Eyecare · ${t.profile.title}` },
     icons: { icon: '/images/logo.png', apple: '/images/logo.png' },
     formatDetection: { telephone: true, email: true, address: true },
   };
@@ -39,7 +39,7 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = getCopy(locale);
-  const jsonLd = physicianJsonLd(locale, t.profile.title, t.home.lead);
+  const jsonLd = physicianJsonLd(locale, t);
   return (
     <html lang={locale} className={`${serif.variable} ${sans.variable}`} suppressHydrationWarning>
       <body>
@@ -47,7 +47,7 @@ export default async function LocaleLayout({ children, params }: Readonly<{ chil
         <a className="skipLink" href="#main-content">{t.common.skipToContent}</a>
         <Header locale={locale} nav={t.nav} common={t.common} />
         <main id="main-content" tabIndex={-1}>{children}</main>
-        <Footer locale={locale} common={t.common} nav={t.nav} consultation={t.consultation} />
+        <Footer locale={locale} common={t.common} nav={t.nav} />
         <MobileBookingBar locale={locale} label={t.nav.book} callLabel={t.common.call} />
         <CookieConsent locale={locale} />
         <Reveal />

@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
-import { locales, site, type Locale } from './i18n';
+import { facilities, locales, serviceGroups, site, type Facility, type Locale, type ServiceGroupId, type Translation } from './i18n';
 
 /** URL pubblico del sito: impostare NEXT_PUBLIC_SITE_URL in produzione se diverso. */
 export const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || 'https://fallaheyecare.com').replace(/\/$/, '');
 
 const ogLocales: Record<Locale, string> = { it: 'it_IT', en: 'en_GB', fr: 'fr_FR', es: 'es_ES' };
+
+/** Pagine pubbliche (usate anche dalla sitemap). */
+export const publicPaths = ['', 'profilo', 'servizi', 'strutture', 'faq', 'contatti', 'privacy', 'cookie'] as const;
 
 /** Metadati per pagina con canonical e hreflang coerenti tra le lingue. */
 export function pageMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
@@ -23,32 +26,57 @@ export function pageMetadata(locale: Locale, path: string, title: string, descri
       description,
       locale: ogLocales[locale],
       url: `/${locale}${suffix}`,
-      images: [{ url: '/images/home.png', width: 2014, height: 1510, alt: 'Fallah Eyecare' }],
+      images: [{ url: '/images/profile.png', width: 2023, height: 1513, alt: 'Dott.ssa Hala Fallah — Fallah Eyecare' }],
     },
   };
 }
 
-/** Dati strutturati schema.org per il medico e le sedi (aiutano Google a mostrare indirizzo e contatti). */
-export function physicianJsonLd(locale: Locale, name: string, description: string) {
-  const address = (street: string) => ({ '@type': 'PostalAddress', streetAddress: street, postalCode: '21100', addressLocality: 'Varese', addressRegion: 'VA', addressCountry: 'IT' });
+const postalAddress = (f: Facility) => ({
+  '@type': 'PostalAddress', streetAddress: f.street, postalCode: f.postalCode,
+  addressLocality: f.city, addressRegion: f.province, addressCountry: 'IT',
+});
+
+const procedureType: Record<ServiceGroupId, string> = {
+  visite: 'MedicalProcedure', diagnostica: 'MedicalTest', oftalmoplastica: 'MedicalProcedure', chirurgia: 'TherapeuticProcedure',
+};
+
+/**
+ * Dati strutturati schema.org: medico, sedi, affiliazione ospedaliera e prestazioni.
+ * Aiutano Google a mostrare indirizzi, contatti e servizi offerti.
+ */
+export function physicianJsonLd(locale: Locale, t: Translation) {
+  const studio = facilities[0];
   return {
     '@context': 'https://schema.org',
     '@type': 'Physician',
     '@id': `${siteUrl}/#physician`,
-    name,
-    description,
+    name: t.profile.title,
+    description: t.home.metaDescription,
     url: `${siteUrl}/${locale}`,
     image: `${siteUrl}/images/profile.png`,
     logo: `${siteUrl}/images/logo.png`,
     telephone: site.phoneDisplay.replace(/\s/g, ''),
     email: site.email,
     medicalSpecialty: 'Ophthalmology',
-    address: address('Via Montello 2'),
-    location: [
-      { '@type': 'MedicalClinic', name: 'Fallah Eyecare — Studio privato', address: address('Via Montello 2') },
-      { '@type': 'MedicalClinic', name: 'Centro Polispecialistico Beccaria', address: address('Via Calogero Marrone 2'), url: site.beccariaUrl },
-    ],
-    areaServed: 'Varese',
-    availableLanguage: ['it', 'en', 'fr', 'es'],
+    address: postalAddress(studio),
+    location: facilities.map((f) => ({
+      '@type': 'MedicalClinic',
+      name: f.id === 'studio' ? `Fallah Eyecare — ${t.facilities.items.studio.name}` : t.facilities.items[f.id].name,
+      address: postalAddress(f),
+      telephone: f.phoneHref.replace('tel:', ''),
+      ...(f.website ? { url: f.website } : {}),
+    })),
+    hospitalAffiliation: {
+      '@type': 'Hospital',
+      name: 'Ospedale SS. Trinità di Borgomanero',
+      address: { '@type': 'PostalAddress', addressLocality: 'Borgomanero', addressRegion: 'NO', addressCountry: 'IT' },
+    },
+    availableService: serviceGroups.flatMap((group) => group.items.map((item) => ({
+      '@type': procedureType[group.id],
+      name: t.services.items[item.id].title,
+      url: `${siteUrl}/${locale}/servizi#${item.id}`,
+    }))),
+    areaServed: ['Varese', 'Borgomanero', 'Milano'].map((name) => ({ '@type': 'City', name })),
+    availableLanguage: [...locales],
   };
 }
