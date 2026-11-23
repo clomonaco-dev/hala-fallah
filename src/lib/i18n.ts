@@ -177,6 +177,7 @@ export type Translation = {
   contact: {
     eyebrow: string; title: string; intro: string; name: string; emailLabel: string; phoneLabel: string;
     subject: string; message: string; send: string; formNote: string;
+    sending: string; sentTitle: string; sentText: string; sendAnother: string; errorText: string;
     studio: string; maps: string; requestTitle: string; requestText: string;
   };
 };

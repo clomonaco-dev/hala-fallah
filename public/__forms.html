@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Moduli Netlify</title>
+  </head>
+  <body>
+    <!--
+      Definizione del modulo per Netlify Forms. Con Next.js le pagine non sono HTML statico, quindi Netlify
+      riconosce il modulo solo da questo file (letto al deploy). Il modulo vero è in src/components/ContactForm.tsx
+      e invia i dati con una POST a /__forms.html: nomi del modulo e dei campi devono coincidere con quelli qui sotto.
+    -->
+    <form name="contatti" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contatti" />
+      <input name="bot-field" />
+      <input name="nome" />
+      <input type="email" name="email" />
+      <input type="tel" name="telefono" />
+      <input name="oggetto" />
+      <textarea name="messaggio"></textarea>
+      <input type="checkbox" name="privacy" value="letta" />
+      <input type="hidden" name="lingua" />
+    </form>
+  </body>
+</html>

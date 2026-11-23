@@ -247,8 +247,10 @@ export const fr: Translation = {
   contact: {
     eyebrow: 'Contact', title: 'Nous répondons à vos questions pratiques',
     intro: 'Pour prendre rendez-vous au cabinet privé ou obtenir des informations, contactez le cabinet par téléphone ou par e-mail. Les numéros des autres structures figurent ci-dessous.',
-    name: 'Nom et prénom', emailLabel: 'E-mail', phoneLabel: 'Téléphone', subject: 'Objet', message: 'Message', send: 'Préparer l’e-mail',
-    formNote: 'Ce formulaire ouvre votre messagerie : aucune donnée n’est envoyée au serveur du site.',
+    name: 'Nom et prénom', emailLabel: 'E-mail', phoneLabel: 'Téléphone', subject: 'Objet', message: 'Message', send: 'Envoyer la demande',
+    formNote: 'Les données du formulaire parviennent au cabinet via Netlify, le service qui héberge ce site, et servent uniquement à répondre à votre demande.',
+    sending: 'Envoi en cours…', sentTitle: 'Message envoyé', sentText: 'Merci, votre demande est bien parvenue au cabinet. Nous vous répondrons à l’adresse e-mail indiquée.',
+    sendAnother: 'Écrire un autre message', errorText: 'Le message n’a pas pu être envoyé. Réessayez dans quelques minutes ou écrivez directement à',
     studio: 'Cabinet privé', maps: 'Voir sur Google Maps',
     requestTitle: 'Écrire au cabinet', requestText: 'Merci de ne pas inclure de données médicales sensibles ou de dossiers médicaux.',
   },

@@ -247,8 +247,10 @@ export const es: Translation = {
   contact: {
     eyebrow: 'Contacto', title: 'Estamos disponibles para información práctica',
     intro: 'Para pedir cita en la consulta privada o solicitar información, contacta con la consulta por teléfono o correo electrónico. Más abajo encontrarás los números de los demás centros.',
-    name: 'Nombre y apellidos', emailLabel: 'Correo electrónico', phoneLabel: 'Teléfono', subject: 'Asunto', message: 'Mensaje', send: 'Preparar correo',
-    formNote: 'El formulario abre tu aplicación de correo; no envía datos al servidor del sitio web.',
+    name: 'Nombre y apellidos', emailLabel: 'Correo electrónico', phoneLabel: 'Teléfono', subject: 'Asunto', message: 'Mensaje', send: 'Enviar solicitud',
+    formNote: 'Los datos del formulario llegan a la consulta a través de Netlify, el servicio que aloja esta web, y solo se usan para responder a tu solicitud.',
+    sending: 'Enviando…', sentTitle: 'Mensaje enviado', sentText: 'Gracias, tu solicitud ha llegado a la consulta. Te responderemos en el correo electrónico que has indicado.',
+    sendAnother: 'Escribir otro mensaje', errorText: 'No se ha podido enviar el mensaje. Inténtalo de nuevo en unos minutos o escribe directamente a',
     studio: 'Consulta privada', maps: 'Ver en Google Maps',
     requestTitle: 'Escribe a la consulta', requestText: 'No incluyas datos médicos sensibles ni documentos clínicos en tu mensaje.',
   },

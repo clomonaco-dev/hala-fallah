@@ -488,6 +488,16 @@ address { font-style: normal; }
 .privacyAcknowledgement input { width: 20px; height: 20px; margin: 1px 0 0; flex-shrink: 0; accent-color: var(--primary); cursor: pointer; }
 .privacyAcknowledgement a { color: var(--accent); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .contactForm .button { align-self: flex-start; }
+.contactForm .button:disabled { opacity: .7; cursor: progress; }
+.formResult { display: flex; gap: 12px; margin: 0; padding: 14px 16px; border-radius: var(--radius-sm); font-size: .92rem; line-height: 1.55; }
+.formResultError { border: 1px solid #f0c4c0; background: #fbe9e7; color: #8f2f2a; }
+.formResultError .icon { margin-top: 2px; flex-shrink: 0; }
+.formResultError a { font-weight: 800; color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.formResultSuccess { gap: 16px; padding: 24px; border: 1px solid #bfe6d6; background: #f1fbf6; color: var(--ink-2); outline: none; scroll-margin-top: 110px; }
+.formResultSuccess h3 { margin: 2px 0 6px; font-size: 1.3rem; color: var(--ink); }
+.formResultSuccess p { margin: 0 0 14px; }
+.formResultIcon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: #e3f6ee; color: #1f9c74; flex-shrink: 0; }
+.formResultSuccess button.textLink { padding: 0; border: 0; background: none; font-family: inherit; cursor: pointer; }
 .formNote { display: flex; gap: 8px; margin: 18px 0 0; font-size: .86rem; }
 .formNote .icon { color: var(--muted); margin-top: 3px; }
 

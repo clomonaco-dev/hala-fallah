@@ -247,8 +247,10 @@ export const en: Translation = {
   contact: {
     eyebrow: 'Contact', title: 'We are here to help with practical information',
     intro: 'To book an examination at the private practice or ask for information, contact the practice by phone or email. Dedicated numbers for the other facilities are listed below.',
-    name: 'Full name', emailLabel: 'Email', phoneLabel: 'Phone number', subject: 'Subject', message: 'Message', send: 'Prepare email',
-    formNote: 'The form opens your email app; no information is submitted to a website server.',
+    name: 'Full name', emailLabel: 'Email', phoneLabel: 'Phone number', subject: 'Subject', message: 'Message', send: 'Send request',
+    formNote: 'Form details reach the practice through Netlify, the service that hosts this website, and are used only to reply to your request.',
+    sending: 'Sending…', sentTitle: 'Message sent', sentText: 'Thank you, your request has reached the practice. We will reply to the email address you provided.',
+    sendAnother: 'Write another message', errorText: 'Your message could not be sent. Please try again in a few minutes or write directly to',
     studio: 'Private practice', maps: 'View on Google Maps',
     requestTitle: 'Write to the practice', requestText: 'Please do not include sensitive medical information or clinical records in your message.',
   },
